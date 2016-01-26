@@ -1,0 +1,34 @@
+//created on: 03.01.2016
+package resources.rules
+//package com.sample
+
+//list any import classes here.
+import com.sample.ShipingFurniture;
+
+//declare any global variables here
+dialect "java"
+
+rule "Purchase under 300€"
+    when
+        $price : ShipingFurniture( $price.getSellPrice < 300 )
+        
+    then
+        $price.setShipingCost(49);
+        System.out.println($price.toString());
+end
+
+rule "Purchase between 300€ and 750€"
+    when
+        $price : ShipingFurniture( sellPrice >= 300 && sellPrice <= 749 )
+    then
+        $price.setShipingCost(99);
+        System.out.println($price.toString());
+end
+
+rule "Purchase over 750€"
+    when
+        $price : ShipingFurniture( sellPrice >= 750 )
+    then
+    	$price.setShipingCost(149);
+        System.out.println($price.toString());
+end
